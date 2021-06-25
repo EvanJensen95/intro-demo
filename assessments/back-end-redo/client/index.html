@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Back End Assessment</title>
+  </head>
+  <body class="container">
+    <button id="complimentButton">Get a compliment</button>
+    <button id="fortuneButton">Get a fortune</button>
+    <button id="getSportsButton">Get a sport</button>
+    <input id='sportInput' placeholder='sportName'/>
+    <button id='submitSport'>add sport</button>
+    <button id='encouragingThingsButton'>Get encouragment!</button>
+    <p>CHARLIE BIT ME!!!!</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/PEOwWPo_t_w" 
+    title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+  </iframe>
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      document.getElementById("complimentButton").onclick = function () {
+        axios.get("http://localhost:4000/api/compliment/")
+            .then(function (response) {
+              const data = response.data;
+              alert(data);
+            });
+      };
+
+      document.querySelector('#fortuneButton').addEventListener('click', function
+      () {
+        axios
+          .get('http://localhost:4000/api/fortunes/')
+          .then(function(res) {
+            alert(res.data)
+          })
+      })
+
+      document.querySelector('#getSportsButton').addEventListener('click',
+      function() {
+        axios
+          .get('http://localhost:4000/api/sports')
+          .then(function(res) {
+            alert(res.data)
+          .catch(function(err) {console.log(err) })
+          })
+      })
+
+      document.querySelector('#submitSport').addEventListener('click', 
+      function() {
+        const sportValue = document.querySelector('#sportInput').value;
+
+        if (!sportsItem) {
+          alert('cannot add empty item!')
+          return;
+        }
+
+        axios
+          .post('http://localhost:4000/api/sports', { newSport: sportValue})
+          .then(function(){
+            alert('Sport Added!')
+          })
+      })
+
+      document.querySelector('#encouragingThingsButton').addEventListener('click', function
+      () {
+        axios
+          .get('http://localhost:4000/api/encouragingThings/')
+          .then(function(res) {
+            alert(res.data)
+          })
+      })
+
+     
+    </script>
+  </body>
+</html>
